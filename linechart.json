@@ -28,7 +28,7 @@
         "value": "",   
         "bind": {
           "input": "text",   
-          "placeholder": "Your country is not here, type it out here",   
+          "placeholder": "If your country is not listed",   
           "name": "Or Type Country Name: "
         }
       }
