@@ -1,0 +1,58 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Poverty Share by Country (Dynamic Year Selection)",
+    "width": 800,
+    "height": 400,
+    "data": {
+      "url": "./subset_poverty_data.csv",  
+      "format": {"type": "csv"}
+    },
+    "params": [
+      {
+        "name": "selectedYear",
+        "value": 2022,  
+        "bind": {
+          "input": "range",
+          "min": 1991,       
+          "max": 2022,      
+          "step": 1,
+          "name": "Select Year: "
+        }
+      }
+    ],
+    "transform": [
+      {
+        "filter": "datum.Year == selectedYear"  
+      },
+      {
+        "calculate": "toNumber(datum['Share below $6.85 a day'])",  
+        "as": "PovertyRate"  
+      }
+    ],
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Country",
+        "type": "nominal",
+        "title": "Country",
+        "sort": "-y"  
+      },
+      "y": {
+        "field": "PovertyRate",  
+        "type": "quantitative",
+        "title": "Share of Population Below $6.85 a Day (%)"
+      },
+      "color": {
+        "field": "Country",
+        "type": "nominal",
+        "legend": null,
+        "title": "Country"
+      },
+      "tooltip": [
+        {"field": "Country", "type": "nominal", "title": "Country"},
+        {"field": "Year", "type": "quantitative", "title": "Year"},
+        {"field": "PovertyRate", "type": "quantitative", "title": "Poverty Rate (%)"}
+      ]
+    }
+  }
+  

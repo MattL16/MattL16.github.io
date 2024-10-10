@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Unemployment and Poverty Insights</title>
+    <!-- Linking the external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <script src="a2_vegalite_vis.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Global Unemployment and Poverty Insights</h1>
+        <p class="intro">This dashboard provides an in-depth analysis of unemployment rates, poverty levels, and economic indicators for various countries. By visualizing data from 1991 to 2022, this dashboard explores how different countries have fared economically, with a focus on unemployment trends, poverty rates, and GDP per capita. The visualizations offer insights into the interconnectedness of unemployment and poverty on a global scale.</p>
+    </header>
+
+    <!-- Map Section -->
+    <section class="chart-section">
+        <p class="data-source">Data Source: Our World in Data</p>
+        <h2>Unemployment Rate Across the Globe</h2>
+        <p class="chart-desc">This choropleth map visualizes global unemployment rates across various countries from 1991 to 2022. Each country is color-coded based on its unemployment rate, making it easy to identify regions with high or low unemployment. Use the interactive map to explore the trends in specific regions or countries over time, gaining insights into how global economic factors have influenced labor markets.</p>
+        <div id="choropleth_map" class="chart-container"></div>
+    </section>
+
+    <!-- Line Chart Section -->
+    <section class="chart-section">
+        <p class="data-source">Data Source: Our World in Data</p>
+        <h2>Country-Specific Unemployment Trend</h2>
+        <p class="chart-desc">The line chart below presents a detailed view of the unemployment rate for individual countries over the years. Select a country to see how its unemployment rate has fluctuated from 1991 to 2022. This chart allows you to compare how specific countries have responded to economic events, recessions, and other influences, offering a longitudinal view of economic health and labor market stability.</p>
+        <div id="line_chart" class="chart-container"></div>
+    </section>
+
+    <!-- Bar Chart Section -->
+    <section class="chart-section">
+        <p class="data-source">Data Source: World Bank</p>
+        <h2>People Living Below $6.65/day</h2>
+        <p class="chart-desc">This bar chart highlights the share of the population in various countries living on less than $6.65 per day, a critical indicator of poverty. By comparing different nations, the chart reflects the stark economic disparities that exist worldwide. The data is a powerful reminder of the challenges that developing countries face in improving living standards and reducing extreme poverty.</p>
+        <div id="bar_chart" class="chart-container"></div>
+    </section>
+
+    <!-- Bubble Chart Section -->
+    <section class="chart-section">
+        <p class="data-source">Data Source: Mix of Our World in Data and World Bank</p>
+        <h2>Poverty Rate vs GDP Per Capita</h2>
+        <p class="chart-desc">This bubble chart offers a multifaceted comparison of countries based on their poverty rates, GDP per capita, and population size. Larger bubbles represent countries with bigger populations, while their position on the chart shows the relationship between GDP per capita and poverty rate. This visualization provides a unique perspective on how economic wealth and poverty are related, highlighting the complexities of addressing poverty in both low-income and high-income countries.</p>
+        <div id="bubble_chart" class="chart-container"></div>
+    </section>
+
+    <footer>
+        <p>Visualization by Matteo Lerda</p>
+    </footer>
+</body>
+</html>
