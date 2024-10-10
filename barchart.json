@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Poverty Share by Country (Dynamic Year Selection)",
-    "width": 800,
+    "width": 1000,
     "height": 400,
     "data": {
       "url": "./subset_poverty_data.csv",  
