@@ -1,59 +1,82 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Line chart showing unemployment rate over the years. Choose a country from the dropdown or type in the name of another country.",
-    "width": 1000,
-    "height": 400,
-    "data": {
-      "url": "./unemployment-rate.csv",
-      "format": {
-        "type": "csv"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Line chart showing unemployment rate over the years. Choose a country from the dropdown or type in the name of another country.",
+  "width": 1000,
+  "height": 400,
+  "data": {
+    "url": "./unemployment-rate.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "params": [
+    {
+      "name": "selectedCountryDropdown", 
+      "value": "World",  
+      "bind": {
+        "input": "select",
+        "options": [
+          "World", "United States", "India", "China", "Brazil", "Germany", "France", "Japan", 
+          "Russia", "United Kingdom", "Canada", "Australia", "Mexico", "Italy", "South Korea", 
+          "Spain", "Indonesia", "Turkey", "Saudi Arabia", "Malaysia"
+        ],
+        "name": "Select Country: "
       }
     },
-    "params": [
-      {
-        "name": "selectedCountryDropdown", 
-        "value": "World",  
-        "bind": {
-          "input": "select",
-          "options": [
-            "World", "United States", "India", "China", "Brazil", "Germany", "France", "Japan", 
-            "Russia", "United Kingdom", "Canada", "Australia", "Mexico", "Italy", "South Korea", 
-            "Spain", "Indonesia", "Turkey", "Saudi Arabia", "Malaysia"
-          ],
-          "name": "Select Country: "
-        }
-      },
-      {
-        "name": "selectedCountryText", 
-        "value": "",   
-        "bind": {
-          "input": "text",   
-          "placeholder": "If your country is not listed",   
-          "name": "Or Type Country Name: "
-        }
+    {
+      "name": "selectedCountryText", 
+      "value": "",   
+      "bind": { 
+        "input": "text",   
+        "placeholder": "If your country is not listed",   
+        "name": "Or Type Country Name: "
       }
-    ],
-    "transform": [
-      {
-        "filter": "datum['Entity'] == (selectedCountryText != '' ? selectedCountryText : selectedCountryDropdown)"
-      }
-    ],
-    "mark": "line",
-    "encoding": {
-      "x": {
-        "field": "Year",
-        "type": "temporal",
-        "title": "Year"
-      },
-      "y": {
-        "field": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
-        "type": "quantitative",
-        "title": "Unemployment Rate (%)"
-      },
-      "tooltip": [
-        {"field": "Year", "type": "temporal", "title": "Year"},
-        {"field": "Unemployment, total (% of total labor force) (modeled ILO estimate)", "type": "quantitative", "title": "Unemployment Rate (%)"}
-      ]
     }
-  }
-  
+  ],
+  "transform": [
+    {
+      "filter": "datum['Entity'] == (selectedCountryText != '' ? selectedCountryText : selectedCountryDropdown)"
+    }
+  ],
+  "layer": [
+    {
+      "mark": "line",
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year"
+        },
+        "y": {
+          "field": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+          "type": "quantitative",
+          "title": "Unemployment Rate (%)",
+          "scale": {"domain": [0, 30]}
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 100,
+        "color": "black"  
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {"field": "Entity", "type": "nominal", "title": "Country"},  
+          {"field": "Year", "type": "temporal", "title": "Year"}, 
+          {"field": "Unemployment, total (% of total labor force) (modeled ILO estimate)", "type": "quantitative", "title": "Unemployment Rate (%)"}  
+        ]
+      }
+    }
+  ]
+}

@@ -1,95 +1,106 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Unemployment Rate by Country (1991 - 2022)",
-    "width": 1000,
-    "height": 400,
-    "projection": {
-      "type": "equalEarth"
-    },
-    "params": [
-        {
-          "name": "Year_selection",
-          "value": 2022,
-          "bind": {
-            "input": "range",
-            "min": 1991,
-            "max": 2022,
-            "step": 1,
-            "name": "Select Year: "
-          }
-        }
-      ],
-    "data": {
-      "url": "./unemployment-rate.csv",
-      "format": {"type": "csv"}
-    },
-    "transform": [
-      {
-        "lookup": "Code",
-        "from": {
-          "data": {
-            "url": "./ne_110m.json",
-            "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-          },
-          "key": "properties.ISO_A3"
-        },
-         "as": "geo"
-      },
-      {
-        "calculate": "toNumber(datum.Year)",
-        "as": "Year"
-      },
-      {
-        "filter": "datum.Year == Year_selection"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "",
+  "width": 1000,
+  "height": 400,
+  "projection": {
+    "type": "equalEarth"
+  },
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 2022,
+      "bind": {
+        "input": "range",
+        "min": 1991,
+        "max": 2022,
+        "step": 1,
+        "name": "Select Year: "
       }
-    ],
-    "layer": [
-      {
-        "mark": {
-          "type": "geoshape",
-          "fill": "lightblue"
-        },
+    }
+  ],
+  "data": {
+    "url": "./unemployment-rate.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "lookup": "Code",
+      "from": {
         "data": {
-          "sphere": true
-        }
-      },
-      {
-        "mark": {
-          "type": "geoshape",
-          "stroke": "lightgray",
-          "strokeWidth": 0.5
+          "url": "./ne_110m.json",
+          "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
         },
-        "data": {
-          "graticule": true
-        }
+        "key": "properties.ISO_A3"
       },
-      {
-        "mark": {
-          "type": "geoshape",
-          "stroke": "gray"
+      "as": "geo"
+    },
+    {
+      "calculate": "toNumber(datum.Year)",
+      "as": "Year"
+    },
+    {
+      "filter": "datum.Year == Year_selection"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightblue"  
+      },
+      "data": {
+        "sphere": true  
+      }
+    },
+    {
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 0.5
+      },
+      "data": {
+        "graticule": true  
+      }
+    },
+    {
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgrey",  
+        "stroke": "black",
+        "strokeWidth": 0.5
+      },
+      "data": {
+        "url": "./ne_110m.json", 
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      }
+    },
+    {
+      "mark": {
+        "type": "geoshape",
+        "stroke": "gray"
+      },
+      "encoding": {
+        "shape": {
+          "field": "geo",
+          "type": "geojson"
         },
-        "encoding": {
-          "shape": {
-            "field": "geo",
-            "type": "geojson"
-          },
-          "color": {
+        "color": {
+          "field": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
+          "type": "quantitative",
+          "scale": {"scheme": "reds"},
+          "title": "Unemployment Rate (%)"
+        },
+        "tooltip": [
+          {"field": "Entity", "type": "nominal", "title": "Country"},
+          {"field": "Year", "type": "quantitative", "title": "Year"},
+          {
             "field": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
             "type": "quantitative",
-            "scale": {"scheme": "reds"},
             "title": "Unemployment Rate (%)"
-          },
-          "tooltip": [
-            {"field": "Entity", "type": "nominal", "title": "Country"},
-            {"field": "Year", "type": "quantitative", "title": "Year"},
-            {
-              "field": "Unemployment, total (% of total labor force) (modeled ILO estimate)",
-              "type": "quantitative",
-              "title": "Unemployment Rate (%)"
-            }
-          ]
-        }
+          }
+        ]
       }
-    ]
-  }
-  
+    }
+  ]
+}

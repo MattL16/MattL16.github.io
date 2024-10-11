@@ -1,84 +1,84 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Poverty Rate vs. GDP per Capita (Bubble Size: Population)",
-    "width": 1000,
-    "height": 400,
-    "data": {
-      "url": "./merged_poverty_gdp_population.csv",
-      "format": {"type": "csv"}
-    },
-    "params": [
-      {
-        "name": "selectedYear",
-        "value": 2022,
-        "bind": {
-          "input": "range",
-          "min": 1991,
-          "max": 2022,
-          "step": 1,
-          "name": "Select Year: "
-        }
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Poverty Rate vs. GDP per Capita (Bubble Size: Population)",
+  "width": 1000,
+  "height": 400,
+  "data": {
+    "url": "./merged_poverty_gdp_population.csv",
+    "format": {"type": "csv"}
+  },
+  "params": [
+    {
+      "name": "selectedYear",
+      "value": 2022,
+      "bind": {
+        "input": "range",
+        "min": 1991,
+        "max": 2022,
+        "step": 1,
+        "name": "Select Year: "
       }
-    ],
-    "transform": [
-      {
-        "calculate": "toNumber(datum['Year'])",
-        "as": "YearNum"
-      },
-      {
-        "filter": "datum.YearNum == selectedYear"
-      },
-      {
-        "calculate": "toNumber(datum['GDP per capita'])",
-        "as": "GDP_per_capita"
-      },
-      {
-        "calculate": "toNumber(datum['Share below $6.85 a day'])",
-        "as": "PovertyRate"
-      },
-      {
-        "calculate": "toNumber(datum['Population'])",
-        "as": "PopulationSize"
-      },
-      {
-        "aggregate": [
-          {"op": "mean", "field": "GDP_per_capita", "as": "GDP_per_capita_mean"},
-          {"op": "mean", "field": "PovertyRate", "as": "PovertyRate_mean"},
-          {"op": "sum", "field": "PopulationSize", "as": "PopulationSize_sum"}
-        ],
-        "groupby": ["Country"]
-      }
-    ],
-    "mark": "circle",
-    "encoding": {
-      "x": {
-        "field": "GDP_per_capita_mean",
-        "type": "quantitative",
-        "title": "GDP per Capita (PPP, constant 2017 $)"
-      },
-      "y": {
-        "field": "PovertyRate_mean",
-        "type": "quantitative",
-        "title": "Poverty Rate (%)"
-      },
-      "size": {
-        "field": "PopulationSize_sum",
-        "type": "quantitative",
-        "title": "Population",
-        "scale": {"range": [100, 5000]}
-      },
-      "color": {
-        "field": "Country",
-        "type": "nominal",
-        "legend": null,
-        "title": "Country"
-      },
-      "tooltip": [
-        {"field": "Country", "type": "nominal", "title": "Country"},
-        {"field": "GDP_per_capita_mean", "type": "quantitative", "title": "GDP per Capita"},
-        {"field": "PovertyRate_mean", "type": "quantitative", "title": "Poverty Rate (%)"},
-        {"field": "PopulationSize_sum", "type": "quantitative", "title": "Population"}
-      ]
     }
+  ],
+  "transform": [
+    {
+      "calculate": "toNumber(datum['Year'])",
+      "as": "YearNum"
+    },
+    {
+      "filter": "datum.YearNum == selectedYear"
+    },
+    {
+      "calculate": "toNumber(datum['GDP per capita'])",
+      "as": "GDP_per_capita"
+    },
+    {
+      "calculate": "toNumber(datum['Share below $6.85 a day'])",
+      "as": "PovertyRate"
+    },
+    {
+      "calculate": "toNumber(datum['Population'])",
+      "as": "PopulationSize"
+    },
+    {
+      "aggregate": [
+        {"op": "mean", "field": "GDP_per_capita", "as": "GDP_per_capita_mean"},
+        {"op": "mean", "field": "PovertyRate", "as": "PovertyRate_mean"},
+        {"op": "sum", "field": "PopulationSize", "as": "PopulationSize_sum"}
+      ],
+      "groupby": ["Country"]
+    }
+  ],
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "GDP_per_capita_mean",
+      "type": "quantitative",
+      "title": "GDP per Capita (PPP, constant 2017 $)"
+    },
+    "y": {
+      "field": "PovertyRate_mean",
+      "type": "quantitative",
+      "title": "Poverty Rate (%)"
+    },
+    "size": {
+      "field": "PopulationSize_sum",
+      "type": "quantitative",
+      "title": "Population",
+      "scale": {"range": [100, 5000]}
+    },
+    "color": {
+      "field": "Country",
+      "type": "nominal",
+      "legend": null,
+      "scale": {"scheme": "tableau20"},  
+      "title": "Country"
+    },
+    "tooltip": [
+      {"field": "Country", "type": "nominal", "title": "Country"},
+      {"field": "GDP_per_capita_mean", "type": "quantitative", "title": "GDP per Capita"},
+      {"field": "PovertyRate_mean", "type": "quantitative", "title": "Poverty Rate (%)"},
+      {"field": "PopulationSize_sum", "type": "quantitative", "title": "Population"}
+    ]
   }
-  
+}
